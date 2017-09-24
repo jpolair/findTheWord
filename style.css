@@ -1,0 +1,133 @@
+body {
+  height: 100%;
+  width:100%;
+  font-family: Inconsolata, Verdana, Geneva, Tahoma, sans-serif;
+}
+  .game {
+    width:800px;
+    margin:30px auto;
+  }
+  #title {
+    text-align: center;
+    margin: 20px auto;
+    color: gray;
+    font-size:2em;
+  }
+  #caseDiv {
+    display: flex;
+    justify-content: center;
+    width: 800px;
+  }
+  #caseDiv div {
+    flex-direction: row;
+    width:60px;
+    height:60px;
+    background: orange;
+    margin:30px 10px 30px 10px;
+    border-radius:5px;
+    color: white;
+    font-size:1.5em;
+    text-align: center;
+    line-height: 60px;
+    white-space: nowrap;
+  }
+  #scoreView {
+    color:gray;
+    font-size:1.5em;
+    text-align: center;
+  }
+  .input {
+    display: flex;
+  }
+  .input input {
+    flex-direction: row;
+    height:50px;
+    width:800px;
+    font-size:1.6em;
+    border-radius:5px;
+    border:2px solid grey ;
+    text-align: center;
+    color:grey;
+  }
+  .buttons {
+    text-align: center;
+  }
+  #play {
+    display: inline-block;
+    width: 120px;
+    height:40px;
+    border-radius:5px;
+    border:1px solid #2299DD;
+    outline: none;
+    background: #2299DD;
+    color: white;
+    font-size: 1.1em;
+  }
+  #play:hover,
+  #play:active {
+    opacity: 0.8;
+  }
+  #help {
+    display: inline-block;
+    width: 120px;
+    height:40px;
+    border-radius:5px;
+    /*border-style:solid;*/
+    border:1px solid #DD1133;
+    outline: none;
+    background: #DD1133;
+    color: white;
+    font-size: 1.1em;
+  }
+  #help:hover,
+  #help:active {
+    opacity: 0.8;
+  }
+  .find {
+    background: #11DD33 !important;
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+  }
+  .help {
+    background: #DD1133 !important;
+    animation-name: spin;
+    animation-duration: 1000ms;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+  }
+  @keyframes spin { 
+    from { 
+        transform: rotate(0deg); 
+    } to { 
+        transform: rotate(360deg); 
+    }
+}
+  @media screen and (max-width: 640px) {
+    #title {
+      font-size:1em;
+    }
+    .game, .input input {
+      width:96%;
+      margin: 30px auto;
+    }
+    #caseDiv {
+      width:96%;
+    }
+    #caseDiv div {
+      margin:30px 2px 30px 2px;
+      width:35px;
+      height:35px;
+      font-size:0.8em;
+      line-height: 35px;
+      white-space: nowrap;
+    }
+    #scoreView {
+      font-size:0.8em;
+    }
+    #play, #help {
+      display: block;
+      margin: 10px auto 20px auto;
+    }
+  }

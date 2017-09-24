@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Find the word</title>
+</head>
+
+<body>
+    <div class="game">
+        <header>
+            <div id="title">
+                <h1>Trouve le bon mot</h1>
+            </div>
+        </header>
+        <div class="input">
+            <input id="result" type="text">
+        </div>
+        <div id="caseDiv">
+
+        </div>
+
+        <div class="buttons"> 
+        <button id="play">Jouer</button>
+        <button onclick="help()" id="help">Aide</button>
+        </div>
+
+        <p id="tryCount"></p>
+
+        <div class="score">
+            <p id="scoreView">
+                Le score est : 0 point
+            </p>
+        </div>
+    </div>
+
+    <script src="findTheWord.js"></script>
+</body>
+
+</html>
