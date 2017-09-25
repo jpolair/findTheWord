@@ -4,12 +4,12 @@ let words = ['bateau', 'avion', 'banane', 'fleur', 'fourchette', 'dentifrice', '
     'garage', 'virgule', 'aventure', 'chemin', 'filet', 'vache', 'tigre', 'rat', 'bol', 'cuillère', 'chaussures', 'pantalon', 'veste', 'vaste',
     'ouest', 'wagon', 'caravane', 'saxophone', 'guitare', 'violon', 'piano', 'piscine', 'grand-père', 'frère', 'soeur', 'papillon',
     'camion', 'continent', 'océan', 'montagne', 'écran', 'vasque', 'évier', 'meuble', 'robinet', 'professeur', 'astronaute', 'cosmonaute',
-    'fusée', 'ballon', 'élastique', 'sable', 'cailloux', 'sucre', 'farine', 'avoine', 'herbe', 'faon', 'cerf', 'requin', 'dauphin', 'baleine','éléphant','menteur','jupe','télévision','volcan','ordinateur','oignon','singe','autruche','girafe',
-'manga','montre','hibou','bijoux','détails','clés','écoliers','patisserie','médaille','vainqueur','vaillant','tableau','chien',
-'puma','couleur','cheveux','football','pieds','mains','télécommande','rhinocéros','palmier','manteau','mots','thé','café','peinture','amplificateur','stade','joyeux','sapin','princesse','saleté','lettre','vitre','calculatrice','rideau','bouche','front','jambe','nez','terre','soleil','campagne','terrible','nuageux','terreur','ampoule','chocolat','amande','pédale','volant',
-'vitesse','clignotant','roues','loin','après','avant','lune','dorénavant','équerre','échelle','technologie','mathématiques',
-'géographie','planisphère','tuilles','tuyau','croissant','chocolatine','beurre','balai','mobile','ornithorynque','kangourou',
-'classeur','carton','tube','pelouse','aventurier','guerrier','général','armée'];
+    'fusée', 'ballon', 'élastique', 'sable', 'cailloux', 'sucre', 'farine', 'avoine', 'herbe', 'faon', 'cerf', 'requin', 'dauphin', 'baleine', 'éléphant', 'menteur', 'jupe', 'télévision', 'volcan', 'ordinateur', 'oignon', 'singe', 'autruche', 'girafe',
+    'manga', 'montre', 'hibou', 'bijoux', 'détails', 'clés', 'écoliers', 'patisserie', 'médaille', 'vainqueur', 'vaillant', 'tableau', 'chien',
+    'puma', 'couleur', 'cheveux', 'football', 'pieds', 'mains', 'télécommande', 'rhinocéros', 'palmier', 'manteau', 'mots', 'thé', 'café', 'peinture', 'amplificateur', 'stade', 'joyeux', 'sapin', 'princesse', 'saleté', 'lettre', 'vitre', 'calculatrice', 'rideau', 'bouche', 'front', 'jambe', 'nez', 'terre', 'soleil', 'campagne', 'terrible', 'nuageux', 'terreur', 'ampoule', 'chocolat', 'amande', 'pédale', 'volant',
+    'vitesse', 'clignotant', 'roues', 'loin', 'après', 'avant', 'lune', 'dorénavant', 'équerre', 'échelle', 'technologie', 'mathématiques',
+    'géographie', 'planisphère', 'tuilles', 'tuyau', 'croissant', 'chocolatine', 'beurre', 'balai', 'mobile', 'ornithorynque', 'kangourou',
+    'classeur', 'carton', 'tube', 'pelouse', 'aventurier', 'guerrier', 'général', 'armée'];
 
 let totalWords = words.length;
 console.log('nombre total de mots', totalWords);
@@ -30,21 +30,26 @@ createCases();
 play.addEventListener('click', playGame, true);
 
 function playGame(e) {
-    let result = document.getElementById('result').value.toLowerCase();
-    if (result == wordToFind) {
-        hasFindWordCount++;
-        showSuccess();
-        beepFindWord();
-        showLetters(wordToFind, result);
-        setTimeout(removeCases,3000);
-        wordToFind = newWord();
-        setTimeout(createCases,3000);
-        console.log('nouveau mot', wordToFind);
-        resetViewInput();
+    if (score < 40) {
+        let result = document.getElementById('result').value.toLowerCase();
+        if (result == wordToFind) {
+            hasFindWordCount++;
+            showSuccess();
+            beepFindWord();
+            showLetters(wordToFind, result);
+            setTimeout(removeCases, 3000);
+            wordToFind = newWord();
+            setTimeout(createCases, 3000);
+            console.log('nouveau mot', wordToFind);
+            resetViewInput();
+        } else if (result != wordToFind) {
+            score++;
+            resetViewInput();
+            showLetters(wordToFind, result);
+            showScore();
+        }
     } else {
-        score++;
-        resetViewInput();
-        showLetters(wordToFind, result);
+        endOfGame();
         showScore();
     }
 }
@@ -79,9 +84,9 @@ function createCases() {
 }
 
 function removeCases() {
-        while(caseDiv.hasChildNodes() ){
-            caseDiv.removeChild(caseDiv.lastChild);
-        }
+    while (caseDiv.hasChildNodes()) {
+        caseDiv.removeChild(caseDiv.lastChild);
+    }
 }
 
 function showLetters(wordToFind, result) {
@@ -90,44 +95,58 @@ function showLetters(wordToFind, result) {
         if (wordToFind[i] == result[i]) {
             let letter = document.querySelectorAll('#caseDiv div')[i];
             if (letter.textContent == '') {
-            letter.textContent = wordToFind[i].toUpperCase();
-            letter.classList.add('find');
-            beepSuccess();
+                letter.textContent = wordToFind[i].toUpperCase();
+                letter.classList.add('find');
+                beepSuccess();
             }
         }
     }
 }
 
 function help() {
-    let numberOfLetters = howManyLetters();
-    let helpLetter = wordToFind[Math.floor(Math.random() * numberOfLetters)];
-    let insertLetter = document.querySelectorAll('#caseDiv div')[wordToFind.indexOf(helpLetter)];
-    if (insertLetter.textContent == '') {
-    insertLetter.textContent = helpLetter.toLocaleUpperCase();
-    insertLetter.classList.add('help');
-    } else if (insertLetter.classList.contains('help')) {
-        insertLetter.textContent = '';
-        insertLetter.classList.remove('help');
-    } 
-    score++;
-    beepHelp();
-    showScore();
+    if (score < 40) {
+        let numberOfLetters = howManyLetters();
+        let helpLetter = wordToFind[Math.floor(Math.random() * numberOfLetters)];
+        let insertLetter = document.querySelectorAll('#caseDiv div')[wordToFind.indexOf(helpLetter)];
+        if (insertLetter.textContent == '') {
+            insertLetter.textContent = helpLetter.toLocaleUpperCase();
+            insertLetter.classList.add('help');
+        } else if (insertLetter.classList.contains('help')) {
+            insertLetter.textContent = '';
+            insertLetter.classList.remove('help');
+        }
+        score++;
+        beepHelp();
+        showScore();
+    } else {
+        endOfGame();
+        showScore();
+    }
 }
 
 function beepSuccess() {
     let beep = new Audio();
-    beep.src="beep-success.mp3";
+    beep.src = "beep-success.mp3";
     beep.play();
 }
 
 function beepHelp() {
     let beep = new Audio();
-    beep.src="beep-help.mp3";
+    beep.src = "beep-help.mp3";
     beep.play();
 }
 
 function beepFindWord() {
     let beep = new Audio();
-    beep.src="beep-find-word.mp3";
+    beep.src = "beep-find-word.mp3";
     beep.play();
+}
+
+function postScore(score,hasFindWordCount) {
+    
+}
+
+function endOfGame() {
+    let invisible = document.getElementById('invisible');
+    invisible.classList.add('visible');
 }

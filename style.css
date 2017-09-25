@@ -83,6 +83,38 @@ body {
   #help:active {
     opacity: 0.8;
   }
+  #post {
+    display: inline-block;
+    width: 120px;
+    height:40px;
+    border-radius:5px;
+    border:1px solid #22DD4B;
+    outline: none;
+    background: #22DD4B;
+    color: white;
+    font-size: 1.1em;
+    margin-top:30px;
+  }
+  .post {
+    display: flex;
+  }
+  .post input {
+    flex-direction: row;
+    height:50px;
+    width:400px;
+    font-size:1.6em;
+    border-radius:5px;
+    border:2px solid grey ;
+    text-align: center;
+    color:grey;
+    margin: 0 auto;
+  }
+  .invisible {
+    display: none;
+  }
+  .visible {
+    display: block;
+  }
   .find {
     background: #11DD33 !important;
     animation-name: spin;
