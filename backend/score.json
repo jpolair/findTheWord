@@ -1,0 +1,14 @@
+[
+    {
+        "id":1,
+        "pseudo":"test",
+        "score":40,
+        "numberOfWords":1
+    },
+    {
+        "id":2,
+        "pseudo":"test-2",
+        "score":40,
+        "numberOfWords":3
+    }
+]

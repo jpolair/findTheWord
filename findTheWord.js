@@ -51,7 +51,8 @@ function playGame(e) {
     } else {
         endOfGame();
         showScore();
-        postScore(score,hasFindWordCount);
+        getScore();
+        //postScore(score,hasFindWordCount);
     }
 }
 
@@ -146,18 +147,36 @@ function beepFindWord() {
 function postScore(score,hasFindWordCount) {
     let xhr = new XMLHttpRequest();
     let scoreToPost = {
-        pseudo:score,
-        score:score,
-        numberOfWord:hasFindWordCount
+        "pseudo":score,
+        "score":score,
+        "numberOfWord":hasFindWordCount
     }
+    console.log('ok');
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             scoreToPost = xhr.responseText;
+            console.log(scoreToPost);
         }
     };
-    xhr.open('post', 'http://backend/score.js',true);
-    //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.open('post', 'backend/score.json');
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send(scoreToPost);
+}
+
+function getScore() {
+    let xhr = new XMLHttpRequest();
+    
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                let data = JSON.parse(xhr.responseText);
+                console.log(data);
+               // document.getElementById('result').innerHTML = data.users[0].firstName;
+            }
+        }
+    };
+    xhr.open('get', 'backend/score.json');
+    xhr.send();
 }
 
 function endOfGame() {
