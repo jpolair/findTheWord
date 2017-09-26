@@ -155,8 +155,8 @@ function postScore(score,hasFindWordCount) {
             scoreToPost = xhr.responseText;
         }
     };
-    xhr.open('post', '/backend/score.js',true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.open('post', 'http://backend/score.js',true);
+    //xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send(scoreToPost);
 }
 
