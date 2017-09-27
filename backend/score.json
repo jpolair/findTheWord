@@ -1,0 +1,34 @@
+{
+  "players": [
+    {
+      "id": 1,
+      "pseudo": "test",
+      "score": "40",
+      "hasFindWord": 5
+    },
+    {
+      "id": 2,
+      "pseudo": "test-2",
+      "score": "40",
+      "hasFindWord": 3
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 4
+    },
+    {
+      "pseudo": "pol",
+      "score": 40,
+      "numberOfWord": 0,
+      "id": 5
+    },
+    {
+      "pseudo": "jpol",
+      "score": 40,
+      "numberOfWord": 6,
+      "id": 6
+    }
+  ]
+}

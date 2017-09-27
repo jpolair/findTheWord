@@ -19,15 +19,20 @@ console.log(wordToFind);
 
 let score = 0;
 let hasFindWordCount = 0;
+let pseudo = '';
+console.log('pseudo', pseudo);
 
 let play = document.getElementById('play');
 let tryCount = document.getElementById('tryCount');
 let scoreView = document.getElementById('scoreView');
 let caseDiv = document.getElementById('caseDiv');
+let post = document.getElementById('post');
+
 
 createCases();
 
 play.addEventListener('click', playGame, true);
+
 
 function playGame(e) {
     if (score < 40) {
@@ -50,9 +55,8 @@ function playGame(e) {
         }
     } else {
         endOfGame();
-        showScore();
-        postScore(score,hasFindWordCount);
     }
+    
 }
 
 function newWord() {
@@ -143,41 +147,52 @@ function beepFindWord() {
     beep.play();
 }
 
-function postScore(score,hasFindWordCount) {
-    let xhr = new XMLHttpRequest();
-    let scoreToPost = JSON.stringify({
-        "pseudo":score,
-        "score":score,
-        "numberOfWord":hasFindWordCount
-    });
-    // xhr.onreadystatechange = function () {
-    //     if (xhr.readyState === 4) {
-    //         let json = JSON.parse(xhr.responseText);
-    //         console.log('responseText' , json);
-    //     }
-    // };
-    xhr.open('post', 'backend/score.json');
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.send(scoreToPost);
+
+function postScore() {
+        let xhr = new XMLHttpRequest();
+        let scoreToPost = {
+            "pseudo": pseudo,
+            "score": score,
+            "numberOfWord": hasFindWordCount
+        };
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                let json = JSON.parse(xhr.responseText);
+                console.log('responseText' , json);
+            }
+        };
+        xhr.open('post', 'http://localhost:3000/players',true);
+        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+        xhr.send(JSON.stringify(scoreToPost));
+        xhr.onloadend = function () {
+            return;
+        }
 }
 
 function getScore() {
     let xhr = new XMLHttpRequest();
-    
+
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 let data = JSON.parse(xhr.responseText);
                 console.log(data);
-               // document.getElementById('result').innerHTML = data.users[0].firstName;
             }
         }
     };
     xhr.open('get', 'backend/score.json');
     xhr.send();
+    
 }
 
 function endOfGame() {
     let invisible = document.getElementById('invisible');
     invisible.classList.add('visible');
+}
+
+function savePseudo() {
+    pseudo = document.getElementById('pseudo').value;
+    if (pseudo != '') { 
+        postScore();
+    }
 }
