@@ -51,8 +51,7 @@ function playGame(e) {
     } else {
         endOfGame();
         showScore();
-        getScore();
-        //postScore(score,hasFindWordCount);
+        postScore(score,hasFindWordCount);
     }
 }
 
@@ -146,20 +145,19 @@ function beepFindWord() {
 
 function postScore(score,hasFindWordCount) {
     let xhr = new XMLHttpRequest();
-    let scoreToPost = {
+    let scoreToPost = JSON.stringify({
         "pseudo":score,
         "score":score,
         "numberOfWord":hasFindWordCount
-    }
-    console.log('ok');
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            scoreToPost = xhr.responseText;
-            console.log(scoreToPost);
-        }
-    };
+    });
+    // xhr.onreadystatechange = function () {
+    //     if (xhr.readyState === 4) {
+    //         let json = JSON.parse(xhr.responseText);
+    //         console.log('responseText' , json);
+    //     }
+    // };
     xhr.open('post', 'backend/score.json');
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Content-type", "application/json");
     xhr.send(scoreToPost);
 }
 
