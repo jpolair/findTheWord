@@ -14,7 +14,7 @@ let words = ['bateau', 'avion', 'banane', 'fleur', 'fourchette', 'dentifrice', '
 let totalWords = words.length;
 console.log('nombre total de mots', totalWords);
 
-let wordToFind = words[Math.floor(Math.random() * totalWords) + 1];
+let wordToFind = words[Math.floor(Math.random() * totalWords)];
 console.log(wordToFind);
 
 let score = 0;
